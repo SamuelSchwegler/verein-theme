@@ -143,23 +143,23 @@ function register_theme_customizer($wp_customize)
      * Theme Einstellung
      */
     $wp_customize->add_panel('webtheke_theme_settings', array(
-        'priority' => 501,
+        'priority' => 600,
         'theme_supports' => '',
         'title' => __('Theme Einstellungen'),
         'description' => __('Darstellungseinstellungen für das Theme.'),
     ));
 
     $wp_customize->add_setting('show_footer_blogpost', array(
-        'default' => 1,
-        'sanitize_callback' => 'absint',
+        'default' => '1',
+        'type' => 'option'
     ));
 
-    $wp_customize->add_control('show_footer_blogpost', array(
+    $wp_customize->add_control(new WP_Customize_Control($wp_customize, 'show_footer_blogpost', array(
         'type' => 'checkbox',
-        'section' => 'theme_settings',
-        'settings' => 'webtheke_theme_settings',
+        'section' => 'webtheke_theme_settings',
+        'settings' => 'show_footer_blogpost',
         'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
-    ));
+    )));
 
 }
 
