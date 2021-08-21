@@ -1,5 +1,5 @@
 <?php
-    $show_post = !isset($args['show_post']) || $args['show_post'];
+    $show_post = (!isset($args['show_post']) || $args['show_post']) && get_theme_mod('show_footer_blogpost', true);
 ?>
 
 <div id="footer" class="<?php if($show_post) { echo('with-post'); } ?>">

@@ -149,14 +149,20 @@ function register_theme_customizer($wp_customize)
         'description' => __('Darstellungseinstellungen für das Theme.'),
     ));
 
+    // Add Section
+    $wp_customize->add_section('activate_elements', array(
+        'title' => __('Elemente aktivieren'),
+        'panel' => 'webtheke_theme_settings',
+        'priority' => 10
+    ));
+
     $wp_customize->add_setting('show_footer_blogpost', array(
         'default' => '1',
-        'type' => 'option'
     ));
 
     $wp_customize->add_control(new WP_Customize_Control($wp_customize, 'show_footer_blogpost', array(
         'type' => 'checkbox',
-        'section' => 'webtheke_theme_settings',
+        'section' => 'activate_elements',
         'settings' => 'show_footer_blogpost',
         'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
     )));
