@@ -113,28 +113,6 @@ function register_theme_customizer($wp_customize)
     addCustomTextField($wp_customize, 'footer_links', __('Footer Links'), 'textarea');
 
     /**
-     * Theme Einstellung
-     */
-    $wp_customize->add_panel('theme_settings', array(
-        'priority' => 501,
-        'theme_supports' => '',
-        'title' => __('Theme Einstellungen'),
-        'description' => __('Darstellungseinstellungen für das Theme.'),
-    ));
-
-    $wp_customize->add_setting('show_footer_blogpost', array(
-        'default' => true,
-        'transport' => 'refresh',
-        'sanitize_callback' => 'sanitize_boolean',
-    ));
-
-    $wp_customize->add_control('show_footer_blogpost', array(
-        'type' => 'boolean',
-        'section' => 'theme_settings',
-        'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
-    ));
-
-    /**
      * Farben
      */
     // Accent color
@@ -160,6 +138,29 @@ function register_theme_customizer($wp_customize)
         'section' => 'colors',
         'label' => esc_html__('Main color', 'theme'),
     )));
+
+    /**
+     * Theme Einstellung
+     */
+    $wp_customize->add_panel('webtheke_theme_settings', array(
+        'priority' => 501,
+        'theme_supports' => '',
+        'title' => __('Theme Einstellungen'),
+        'description' => __('Darstellungseinstellungen für das Theme.'),
+    ));
+
+    $wp_customize->add_setting('show_footer_blogpost', array(
+        'default' => 1,
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control('show_footer_blogpost', array(
+        'type' => 'checkbox',
+        'section' => 'theme_settings',
+        'settings' => 'webtheke_theme_settings',
+        'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
+    ));
+
 }
 
 add_action('customize_register', 'register_theme_customizer');
