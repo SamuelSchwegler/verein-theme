@@ -1,4 +1,4 @@
-# Theme für die correct.ch ag
+# Theme für Kunden von Webtheke
 
 ## Deployment
 Das Deployment läuft via dem Wordpress Plugin [WP Pusher](https://wppusher.com/).

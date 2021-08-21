@@ -22,9 +22,11 @@
                 <h2 class="page-title">
                     <?php echo get_the_title(); ?>
                 </h2>
+                <?php if(has_excerpt()) { ?>
                 <div class="abstract">
                     <?php echo get_extended(get_post()->post_content)['main'] ?>
                 </div>
+                <?php } ?>
                 <div class="text">
                     <?php the_content(null, true); ?>
                 </div>
