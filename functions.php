@@ -61,7 +61,8 @@ function register_my_menus()
 
 add_action('init', 'register_my_menus');
 
-function addCustomField($wp_customize, $name, $title, $type) {
+function addCustomTextField($wp_customize, $name, $title, $type)
+{
     // Add Section
     $wp_customize->add_section($name, array(
         'title' => $title,
@@ -103,15 +104,39 @@ function register_theme_customizer($wp_customize)
     ));
 
     // Add Text
-    addCustomField($wp_customize, 'impressum_text', __('Impressum'),'textarea');
-    addCustomField($wp_customize, 'instagram_link', __('Instagram Link'),'link');
-    addCustomField($wp_customize, 'twitter_link', __('Twitter Link'),'link');
-    addCustomField($wp_customize, 'linkedin_link', __('Linkedin Link'),'link');
-    addCustomField($wp_customize, 'facebook_link', __('Facebook Link'),'link');
-    addCustomField($wp_customize, 'footer_adresse', __('Footer Adresse'),'textarea');
-    addCustomField($wp_customize, 'footer_links', __('Footer Links'),'textarea');
+    addCustomTextField($wp_customize, 'impressum_text', __('Impressum'), 'textarea');
+    addCustomTextField($wp_customize, 'instagram_link', __('Instagram Link'), 'link');
+    addCustomTextField($wp_customize, 'twitter_link', __('Twitter Link'), 'link');
+    addCustomTextField($wp_customize, 'linkedin_link', __('Linkedin Link'), 'link');
+    addCustomTextField($wp_customize, 'facebook_link', __('Facebook Link'), 'link');
+    addCustomTextField($wp_customize, 'footer_adresse', __('Footer Adresse'), 'textarea');
+    addCustomTextField($wp_customize, 'footer_links', __('Footer Links'), 'textarea');
 
+    /**
+     * Theme Einstellung
+     */
+    $wp_customize->add_panel('theme_settings', array(
+        'priority' => 501,
+        'theme_supports' => '',
+        'title' => __('Theme Einstellungen'),
+        'description' => __('Darstellungseinstellungen für das Theme.'),
+    ));
 
+    $wp_customize->add_setting('show_footer_blogpost', array(
+        'default' => true,
+        'transport' => 'refresh',
+        'sanitize_callback' => 'sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('show_footer_blogpost', array(
+        'type' => 'boolean',
+        'section' => 'theme_settings',
+        'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
+    ));
+
+    /**
+     * Farben
+     */
     // Accent color
     $wp_customize->add_setting('accent_color', array(
         'default' => '',
@@ -179,7 +204,7 @@ function theme_get_customizer_css()
     if (!empty($accent_color)) {
         ?>
         #footer, .team-group .card, .pagination .nav-links .page-numbers.current {
-            background: <?php echo $accent_color; ?> !important;
+        background: <?php echo $accent_color; ?> !important;
         }
 
         <?php
@@ -196,25 +221,25 @@ function theme_get_customizer_css()
         .nav-link:hover, .text a:not(.button), a.link:not(.button), a.link:not(.wp-block-button__link),
         .menu-item-has-children > ul.nav-expand-content,
         .main-color, .main-color-on-hover:hover {
-            color: <?php echo $main_color; ?> !important;
+        color: <?php echo $main_color; ?> !important;
         }
 
         .card-box .card-box-action, .button, .pagination .nav-links .page-numbers,
         .menu-kontakt-container a,
         .main-background {
-            background: <?php echo $main_color; ?> !important;
+        background: <?php echo $main_color; ?> !important;
         }
 
         .border-main-color {
-            border-color: <?php echo $main_color; ?> !important;
+        border-color: <?php echo $main_color; ?> !important;
         }
 
         .menu-item-has-children > ul.nav-expand-content::before {
-            border-bottom: solid 6px <?php echo $main_color; ?> !important;
+        border-bottom: solid 6px <?php echo $main_color; ?> !important;
         }
 
         .menu-item-has-children > ul.nav-expand-content {
-            border-top: 5px solid <?php echo $main_color; ?>;
+        border-top: 5px solid <?php echo $main_color; ?>;
         }
         <?php
     }
@@ -222,22 +247,19 @@ function theme_get_customizer_css()
     return $css;
 }
 
-/*add_action('reset_api_init', function(){
-    register_rest_route('baseURL/v1/baseEndPoint', '/endPoint/', array(
-        'methods' => 'GET',
-        'callback' => loadMoreBlog
-    ))
-});*/
-
-function enable_ajax_functionality() {
-  wp_localize_script( 'ajaxify', 'ajaxify_function', array('ajaxurl' => admin_url('admin-ajax.php')) );
+function enable_ajax_functionality()
+{
+    wp_localize_script('ajaxify', 'ajaxify_function', array('ajaxurl' => admin_url('admin-ajax.php')));
 }
+
 add_action('template_redirect', 'enable_ajax_functionality');
 
-function loadMoreBlog(){
+function loadMoreBlog()
+{
     echo json_encode(['test']);
     wp_die();
 }
+
 add_action('wp_ajax_nopriv_loadMoreBlog', 'loadMoreBlog');
 
 /**

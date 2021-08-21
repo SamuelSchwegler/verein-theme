@@ -23,12 +23,12 @@
                     <?php echo get_the_title(); ?>
                 </h2>
                 <?php if(has_excerpt()) { ?>
-                <div class="abstract">
-                    <?php echo get_extended(get_post()->post_content)['main'] ?>
-                </div>
+                    <div class="abstract">
+                        <?php echo the_excerpt() ?>
+                    </div>
                 <?php } ?>
                 <div class="text">
-                    <?php the_content(null, true); ?>
+                    <?php the_content(null, has_excerpt()); ?>
                 </div>
             <?php endwhile; endif; ?>
         </div>
