@@ -20,8 +20,7 @@ if ($type === 'vid') {
 }
 
 ?>
-
-<div class="media-text-wrapper-container">
+<div class="media-text-wrapper-container <?php if(block_value('disable_max_height', false)) echo 'disable-max-height'; ?>">
     <div class="media-text-wrapper">
         <div class="media">
             <?php echo $media ?>
@@ -29,8 +28,10 @@ if ($type === 'vid') {
         <div class="text">
             <h3 class="title"><?php block_field('titel'); ?></h3>
             <span class="paragraph"><?php block_field('text'); ?></span>
+            <?php if(block_field('button_url', false)) { ?>
             <a href="<?php block_field('button_url') ?? '' ?>"
                class="button"><?php block_field('button_text') ?? 'mehr erfahren' ?></a>
+            <?php } ?>
         </div>
     </div>
 </div>

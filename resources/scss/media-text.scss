@@ -6,10 +6,10 @@
   margin-left: $margin-diff;
   background: white;
   color: black;
-  height: $block-height-lg;
   border-radius: 0;
   width: 100vw;
   max-width: $container-max-width;
+  height: inherit;
 
   @include breakpoint('xl') {
     margin-left: -$gap;
@@ -76,7 +76,7 @@
   }
 
   .wp-block-media-text__media, .media {
-    height: $block-height-lg;
+    height: inherit;
 
     @include breakpoint('md') {
       height: auto;
@@ -107,6 +107,10 @@
   display: block;
   margin-top: $gap*2;
   margin-bottom: $gap*2;
+
+  &:not(.disable-max-height) {
+    height: $block-height-lg;
+  }
 }
 
 @media screen and (max-width: 1250px) {
