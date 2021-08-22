@@ -167,6 +167,56 @@ function register_theme_customizer($wp_customize)
         'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
     )));
 
+    // Add Section
+    addFonts($wp_customize);
+}
+
+function addFonts($wp_customize)
+{
+    $wp_customize->add_section('fonts', array(
+        'title' => __('Schriftart'),
+        'panel' => 'webtheke_theme_settings',
+        'priority' => 11
+    ));
+
+    $wp_customize->add_setting('google_font_url', array(
+        'default' => 'https://fonts.googleapis.com/css2?family=Assistant:wght@600;700&display=swap',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Control($wp_customize, 'google_font_url', array(
+        'type' => 'link',
+        'section' => 'fonts',
+        'settings' => 'google_font_url',
+        'label' => __('URL für Google Fonts.'),
+    )));
+
+    addFontControll($wp_customize, 'heading_font', __('Schrift für Titel'));
+    addFontControll($wp_customize, 'body_font', __('Schrift für Body'));
+}
+
+function addFontControll($wp_customize, $name, $description)
+{
+    $wp_customize->add_setting($name, array(
+        'default' => "'Assistant', sans-serif",
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Control($wp_customize, $name, array(
+        'type' => 'text',
+        'section' => 'fonts',
+        'settings' => $name,
+        'label' => $description,
+    )));
+
+    $wp_customize->add_setting($name . '_weight', array(
+        'default' => 600,
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Control($wp_customize, $name . '_weight', array(
+        'type' => 'text',
+        'section' => 'fonts',
+        'settings' => $name . '_weight',
+        'label' => $description . ' ' . __('(Stärke)'),
+    )));
 }
 
 add_action('customize_register', 'register_theme_customizer');
