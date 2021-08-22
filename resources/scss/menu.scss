@@ -1,16 +1,25 @@
-@include breakpoint('lg','min'){
+@include breakpoint('lg', 'min') {
   .mobile-menu {
     display: none;
   }
 
   .logo {
-    width: 250px;
-    position: relative;
-    display: inline-block
+    flex: 1;
+
+    a {
+      width: 250px;
+      display: block;
+    }
   }
 
   button.menu-toggle {
     display: none;
+  }
+
+  #right-menu {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
   }
 
   /**
@@ -18,7 +27,10 @@
   * Contact Menu aka Button on the top right
   */
   .menu-kontakt-container {
-    float: right;
+
+    #contact-menu {
+
+    }
 
     a {
       padding: 10px 15px 10px 15px !important;
@@ -33,7 +45,6 @@
   * Search Form
   */
   #header .search-form-outer {
-    float: right;
   }
 
   .search-form-outer {
@@ -50,10 +61,11 @@
     &.active {
       border: 1px solid lightgray;
       background: white;
-	  position: absolute;
-	  width: 30%;
-	  right: 0;
-	  margin-right: 0;
+      position: absolute;
+      width: 30%;
+      right: 0;
+      margin-right: 0;
+      z-index: 1;
 
       .search-form-wrapper {
         display: inline-block;
@@ -62,18 +74,22 @@
     }
 
     &.center {
+      width: 500px;
       left: 50%;
-      margin-left: -125px;
+      margin-left: -250px;
     }
 
     input {
       border: none;
       background: unset;
-      max-width: 180px;
       -webkit-transition: all 0.6s 0s ease;
       -moz-transition: all 0.6s 0s ease;
       -o-transition: all 0.6s 0s ease;
       transition: all 0.6s 0s ease;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -106,15 +122,15 @@
   /**
   * Page Menu
   */
-  .menu-main-container, .menu-kontakt-container {
-    position: relative;
-    display: inline-block;
+  #mainmenu {
+    flex: auto;
   }
 
   ul.menu {
     list-style: none;
     margin: 0px;
     padding: 0px;
+    position: relative;
 
     > li {
       display: inline-block;
@@ -206,7 +222,7 @@
   }
 }
 
-@include breakpoint('lg'){
+@include breakpoint('lg') {
   .mobile-menu {
     display: inline-block;
     overflow-y: auto;

@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="container">
+<div class="container" id="search-page">
     <h2 class="page-title">
         Suche
     </h2>

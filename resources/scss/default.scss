@@ -88,6 +88,9 @@ strong {
 
     > .container {
       position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -270,4 +273,8 @@ a {
       border-bottom: 1px solid black;
     }
   }
+}
+
+#search-page  {
+  padding-bottom: 3rem;
 }
