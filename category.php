@@ -3,8 +3,8 @@
         <h2 class="page-title"><?php single_cat_title(); ?></h2>
         <div class="post-boxes row">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                <div class="post-box col">
-                    <?php if (has_post_thumbnail()) { ?>
+                <div class="post-box col <?php if(get_theme_mod('show_footer_blogpost', true)) { echo('with-img'); } ?>">
+                    <?php if (get_theme_mod('show_footer_blogpost', true) && has_post_thumbnail()) { ?>
                         <div class="post-box-image-container">
                             <a class="link" href="<?php the_permalink(); ?>">
                                 <?php if (wp_is_mobile()) {
@@ -15,7 +15,7 @@
                             </a>
                         </div>
                     <?php } ?>
-                    <p class="blog-info"><?php the_author(); ?> | <?php the_time('d.m.Y'); ?></p>
+                    <p class="blog-info"><?php the_time('d.m.Y'); ?></p>
                     <h4 class="post-box-title">
                         <a class="link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                     </h4>
