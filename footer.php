@@ -11,9 +11,8 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a href="https://correct.ch">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/logo-correct-white-<?php echo substr(get_theme_mod('accent_color', ''), 1); ?>.png"
-                         alt="" class="logo">
+                <a href="<?php echo get_site_url(); ?>">
+                    <img src="<?php echo get_theme_mod('footer_logo', ''); ?>" alt="" class="logo">
                 </a>
             </div>
             <div id="social-wrapper-desktop" class="col">

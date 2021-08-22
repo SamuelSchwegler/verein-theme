@@ -8,6 +8,7 @@
 
     a {
       width: 250px;
+      height: auto;
       display: block;
     }
   }
@@ -63,6 +64,7 @@
       background: white;
       position: absolute;
       width: 30%;
+      max-width: 250px;
       right: 0;
       margin-right: 0;
       z-index: 1;
@@ -133,9 +135,6 @@
     position: relative;
 
     > li {
-      display: inline-block;
-      float: left;
-      margin-left: 0.35rem;
       position: relative;
 
       &.current-menu-item a {
@@ -237,6 +236,8 @@
     max-height: 80px;
     max-width: 250px;
     margin: 0px;
+    height: auto;
+    width: auto;
   }
 
 
