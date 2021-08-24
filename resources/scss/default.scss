@@ -144,6 +144,8 @@ strong {
     position: -webkit-sticky; /* Safari */
     z-index: 1;
     position: relative;
+
+    max-height: 600px;
   }
 }
 
