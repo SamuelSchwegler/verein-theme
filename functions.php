@@ -116,27 +116,39 @@ function register_theme_customizer($wp_customize)
      * Farben
      */
     // Accent color
-    $wp_customize->add_setting('accent_color', array(
+    $wp_customize->add_setting('first_color', array(
         'default' => '',
         'transport' => 'refresh',
         'sanitize_callback' => 'sanitize_hex_color',
     ));
 
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'accent_color', array(
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'first_color', array(
         'section' => 'colors',
-        'label' => esc_html__('Accent color', 'theme'),
+        'label' => esc_html__('1. Farbe', 'theme'),
     )));
 
     // Main color
-    $wp_customize->add_setting('main_color', array(
+    $wp_customize->add_setting('second_color', array(
         'default' => '',
         'transport' => 'refresh',
         'sanitize_callback' => 'sanitize_hex_color',
     ));
 
-    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'main_color', array(
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'second_color', array(
         'section' => 'colors',
-        'label' => esc_html__('Main color', 'theme'),
+        'label' => esc_html__('2. Farbe', 'theme'),
+    )));
+
+    // Main color
+    $wp_customize->add_setting('third_color', array(
+        'default' => '',
+        'transport' => 'refresh',
+        'sanitize_callback' => 'sanitize_hex_color',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'third_color', array(
+        'section' => 'colors',
+        'label' => esc_html__('3. Farbe', 'theme'),
     )));
 
     /**
@@ -165,6 +177,17 @@ function register_theme_customizer($wp_customize)
         'section' => 'activate_elements',
         'settings' => 'show_footer_blogpost',
         'label' => __('Blog Post auf jeder Seite zeigen im Footer.'),
+    )));
+
+    $wp_customize->add_setting('show_post_thumbnail_in_category', array(
+        'default' => '1',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Control($wp_customize, 'show_post_thumbnail_in_category', array(
+        'type' => 'checkbox',
+        'section' => 'activate_elements',
+        'settings' => 'show_post_thumbnail_in_category',
+        'label' => __('Soll ein Beitragsbild gezeigt werden auf Kategorieseiten'),
     )));
 
     // Add Section
@@ -281,18 +304,18 @@ function theme_get_customizer_css()
 {
     ob_start();
 
-    $accent_color = get_theme_mod('accent_color', '');
-    if (!empty($accent_color)) {
+    $first_color = get_theme_mod('first_color', '');
+    if (!empty($first_color)) {
         ?>
-        #footer, .team-group .card, .pagination .nav-links .page-numbers.current {
-        background: <?php echo $accent_color; ?> !important;
+        #footer, .team-group .card, .pagination .nav-links .page-numbers.current, #social-wrapper-mobile {
+        background: <?php echo $first_color; ?> !important;
         }
 
         <?php
     }
 
-    $main_color = get_theme_mod('main_color', '');
-    if (!empty($main_color)) {
+    $second_color = get_theme_mod('second_color', '');
+    if (!empty($second_color)) {
         ?>
         h1, h2, h3, h4, h2.page-title,
         #cssmenu ul li.current_page_item > span a,
@@ -302,27 +325,38 @@ function theme_get_customizer_css()
         .nav-link:hover, .text a:not(.button), a.link:not(.button), a.link:not(.wp-block-button__link),
         .menu-item-has-children > ul.nav-expand-content,
         .main-color, .main-color-on-hover:hover {
-        color: <?php echo $main_color; ?> !important;
+        color: <?php echo $second_color; ?> !important;
         }
 
         .card-box .card-box-action, .button, .pagination .nav-links .page-numbers,
         .menu-kontakt-container a,
         .main-background {
-        background: <?php echo $main_color; ?> !important;
+        background: <?php echo $second_color; ?> !important;
         }
 
         .border-main-color {
-        border-color: <?php echo $main_color; ?> !important;
+        border-color: <?php echo $second_color; ?> !important;
         }
 
         .menu-item-has-children > ul.nav-expand-content::before {
-        border-bottom: solid 6px <?php echo $main_color; ?> !important;
+        border-bottom: solid 6px <?php echo $second_color; ?> !important;
         }
 
         .menu-item-has-children > ul.nav-expand-content {
-        border-top: 5px solid <?php echo $main_color; ?>;
+        border-top: 5px solid <?php echo $second_color; ?>;
         }
         <?php
+
+        $third_color = get_theme_mod('third_color', '');
+        if (!empty($third_color)) {
+        ?>
+            .post-box.col, .nav-is-toggled #main-menu-mobile li.current_page_item:hover > span,
+            .nav-is-toggled #main-menu-mobile li.current_page_item,
+            .nav-is-toggled #main-menu-mobile li:hover {
+                background: <?php echo $third_color; ?>
+            }
+        <?php
+        }
     }
     $css = ob_get_clean();
     return $css;

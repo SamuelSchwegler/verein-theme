@@ -5,6 +5,7 @@
 
 $space-blog: 0.6em;
 $margin-side: 1em;
+$box-text-height: 500px;
 
 .post-boxes {
   display: flex;
@@ -25,14 +26,22 @@ $margin-side: 1em;
   flex: 1;
   max-width: calc(33.33% - #{$gap/3*2});
   min-width: calc(33.33% - #{$gap/3*2});
-  min-height: 690px;
   position: relative;
   background: $background-blue;
+  min-height: $box-text-height;
+
+  &.with-img {
+    min-height: $box-text-height + 250px;
+  }
 
   @include breakpoint('xl') {
     max-width: calc(50% - #{$gap/2});
     min-width: calc(50% - #{$gap/2});
-    min-height: 660px;
+    min-height: $box-text-height - 50px;
+
+    &.with-img {
+      min-height: $box-text-height + 200px;
+    }
   }
 
   @include breakpoint('sm') {
@@ -50,7 +59,6 @@ $margin-side: 1em;
 
   .blog-info {
     font-size: 0.9em;
-    border-bottom: 1px solid white;
     margin-bottom: 0;
     margin-top: 0;
     padding: $space-blog 0;
