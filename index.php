@@ -35,7 +35,7 @@
                 </p>
             </div>
             <div id="page-img">
-                <img src="beitragsbild.png" alt="">
+                <img src="public/media/beitragsbild.png" alt="">
             </div>
         </div>
         <div class="fill-area"></div>

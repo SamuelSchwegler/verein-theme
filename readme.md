@@ -1,4 +1,5 @@
 # Theme für Kunden von Webtheke
+Dieses Theme soll spezialisiert sein für Sportvereine.
 
 ## Deployment
 Das Deployment läuft via dem Wordpress Plugin [WP Pusher](https://wppusher.com/).

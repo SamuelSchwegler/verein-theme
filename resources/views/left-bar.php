@@ -1,6 +1,6 @@
 <div id="navigation-bar">
     <div id="logo-area">
-        <img src="logo_transparent.png" alt="">
+        <img src="public/media/logo_transparent.png" alt="">
     </div>
     <div id="menu-area">
         <ul class="menu">
@@ -50,7 +50,7 @@
         <h5>Nächste Termine</h5>
         <div class="event">
             <div class="symbol">
-                <img src="basket.png" alt="">
+                <img src="public/media/basket.png" alt="">
             </div>
             <div class="info">
                 Training
@@ -60,7 +60,7 @@
         </div>
         <div class="event">
             <div class="symbol">
-                <img src="calendar.png" alt="">
+                <img src="public/media/calendar.png" alt="">
             </div>
             <div class="info">
                 Generalversammlung
