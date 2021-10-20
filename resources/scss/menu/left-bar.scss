@@ -1,0 +1,88 @@
+#navigation-bar {
+  height: 100vh;
+  z-index: 0;
+  position: fixed;
+  width: $left-menu-width;
+  display: flex;
+  flex-flow: column;
+
+  .fill-area {
+    background: #ffffff;
+  }
+}
+
+#logo-area {
+  background: #ffffff;
+
+  img {
+    width: $left-menu-width;
+    height: $left-menu-width;
+    padding: 10px;
+  }
+}
+
+#menu-area .menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .item {
+    a {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      background: #ffffff;
+      display: block;
+      color: #333;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+
+      &:hover, &.sub-menu-open a {
+        background: $main-color;
+        color: $cloud;
+      }
+    }
+
+    &:not(:last-child) a {
+      border-bottom: 1px solid #aaa;
+    }
+
+    &.has-children > a:before {
+      content: '>';
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      padding: 10px;
+      vertical-align: middle;
+    }
+  }
+
+  .menu {
+    position: absolute;
+    background: $main-color;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    padding-top: $left-menu-width;
+    z-index: -1;
+    width: $left-menu-width;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+
+    .item a {
+      background: $main-color;
+      color: $cloud;
+    }
+  }
+}
+
+.shadow-element {
+  position: fixed;
+  top: 0px;
+  left: $left-menu-width;
+  width: 0.1px;
+  height: 100vh;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+  clip-path: inset(0px -15px 0px 0px);
+}

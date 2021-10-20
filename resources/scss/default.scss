@@ -1,283 +1,92 @@
 @import "vars";
-@import "menu";
-@import "overview";
-@import "accordion";
-@import "blog";
-@import "footer";
-@import "form";
-@import "media-text";
-@import "buttons";
-@import "offers";
+
+@import 'menu/event';
+@import "menu/left-bar";
 
 * {
   box-sizing: border-box;
-  font-size: 18px;
+}
 
-  @include breakpoint('xl') {
-    font-size: 17px;
-  }
-
-  @include breakpoint('lg') {
-    font-size: 16px;
-  }
-
-  @include breakpoint('md') {
-    font-size: 15px;
-  }
+html {
+  background: $cloud;
 }
 
 body {
-  height: 100%;
-  width: 100%;
   margin: 0;
-  background: $lightgrey;
-
-  @include breakpoint('lg') {
-      padding-top: $mobile-header-height;
-  }
+  padding: 0;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: $font-weight-standard;
+  font-size: $font-size;
 }
 
-h2 {
-  font-size: 35px;
-
-  &.page-title {
-    padding-top: $gap;
-    text-align: center;
-  }
+#page {
+  display: flex;
 }
 
-h3 {
-  font-size: 25px;
+#main {
+  margin-left: $left-menu-width;
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
 }
 
-strong {
-  font-weight: bold;
+#content {
+  min-height: 100px;
+  display: flex;
 }
 
-/**
-* Layout
-*/
-.container {
-  max-width: $container-max-width;
-  margin: 0 auto;
-
-  @include breakpoint('sm') {
-    margin: 0; // full width
-  }
-}
-
-.text-container {
-  max-width: $text-container-max-width;
+#footer {
+  background: $dark;
   width: 100%;
-  margin: 0 auto;
-}
+  padding: 3rem;
+  color: white;
+  bottom: 0px;
+  left: 0px;
 
-.text-center {
-  text-align: center;
-}
-
-#header {
-  width: 100%;
-
-  @include breakpoint('lg','min') {
-    padding: 2.5rem $small-gap 2.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    background: white;
-
-    > .container {
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
+  > .row {
+    max-width: 800px;
   }
 
-  @include breakpoint('lg') {
-    top: 0px;
-    background: $header-color;
-    z-index: 4;
-    padding: 0px $gap;
-    border-bottom: 1px solid #aaa;
-    background: #ffffff;
-
-    position: fixed;
-    height: $mobile-header-height;
-
-    @include breakpoint('sm') {
-      padding: 0 $small-gap; // full width
-    }
-  }
-
-  .container .row {
-    min-height: none;
-  }
 }
 
-#page-content {
-  margin-top: -13rem;
-  background: $lightgrey;
-  padding: 0 $gap $gap; // damit zwischen bild und text noch weisser rand ist
-  z-index: 2;
-  position: relative;
-
-  @include breakpoint('sm') {
-    padding: 0 $small-gap; // full width
-    margin-top: -2rem;
-  }
-}
-
-
-
-.img-section {
-  min-height: 250px;
-
-  @include breakpoint('lg') {
-    min-height: 150px;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    position: -webkit-sticky; /* Safari */
-    z-index: 1;
-    position: relative;
-
-    max-height: 600px;
-  }
-}
-
-.about {
-  position: absolute;
-  bottom: 1rem;
-}
-
-/**
-* Cols
- */
 .row {
   display: flex;
-  gap: $gap;
-  justify-content: flex-start;
+
+  > .col {
+    flex: 1;
+  }
 }
 
-.col {
+#text {
   flex: 1;
-  flex-basis: 0;
+  padding: 4rem $horizontal-gap;
+  min-width: 800px;
+
+  p.abstract {
+    font-weight: $font-weight-bold;
+  }
+
+  .meta > .date {
+    margin-right: 2rem;
+  }
 }
 
-/**
-* General html elements
-*/
-img {
-  max-width: 100%;
-  height: auto;
+#page-img {
+  flex: 1;
+  margin: 4rem $horizontal-gap 0 0;
+
+  > img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 a {
-  color: var(--blue);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--darker-blue);
-    text-decoration: underline;
-  }
+  color:  $main-color;
 }
 
-/* Page Abstract */
-.abstract p {
-  font-size: 1.25rem;
-  color: var(--green);
-  font-weight: 600;
-  padding: 0px 0 1rem;
-  line-height: 1.8rem;
-  margin-top: 0px;
-}
-
-/* Text */
-.text p {
-  hyphens: auto;
-  color: #444;
-}
-
-.social-icon {
-  margin-right: 1rem;
-
-  &:hover {
-    text-decoration: none;
-    filter: brightness(50%);
-  }
-
-  img {
-    width: auto;
-    height: 40px;
-  }
-}
-
-/* override wp styles */
-.wp-block-embed, .wp-block-image {
-  margin: 0;
-}
-
-.wp-block-column p {
-  margin-top: 0px;
-}
-
-.wp-block-embed iframe {
+.fill-area {
   width: 100%;
-}
-
-/* responsive */
-@include breakpoint('xl') {
-  .content {
-    margin-right: 15px;
-  }
-}
-
-@include breakpoint('lg') {
-  .row {
-    gap: 1rem;
-  }
-}
-
-@include breakpoint('md') {
-  .img-section {
-    flex: 0;
-  }
-
-  .logo {
-    margin-left: 0px;
-  }
-}
-
-/*
-*
-* For pages that want text starting below banner
-*/
-
-.page-img-compact {
-  #page-content {
-    margin-top: 3em;
-    background: unset;
-  }
-}
-
-// table styles
-.wp-block-table {
-  margin-left: 0px;
-  margin-right: 0px;
-
-  table {
-    border-collapse: collapse;
-
-    td {
-      border-bottom: 1px solid black;
-    }
-  }
-}
-
-#search-page  {
-  padding-bottom: 3rem;
+  flex: 1;
 }

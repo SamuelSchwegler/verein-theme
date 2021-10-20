@@ -1,71 +1,15 @@
-/* Variablen */
-$left-col: 5;
-$right-col: 6;
-
-$gap: 30px;
-$small-gap: $gap/2;
-
-$container-max-width: 1200px; //maybe go for 1400
-$text-container-max-width: 900px; //maybe go for 1000
-$container-width-diff: $container-max-width - $text-container-max-width;
-$margin-diff: -($container-width-diff)/2 - $gap;
-
 // colors
-$background-blue: #3b4856;
-$yellow: #e49d22;
-$lightgrey: #f0f0f0;
-$menu-gray: #808080;
-$header-color: #fffff;
+$blue: #0069b4;
+$cloud: #f0f0f0;
 $dark: #333;
 
-$mobile-header-height: 80px;
+$main-color: $blue;
 
-@function calcHeight($amount: 100%) {
-  @return 100% - $mobile-header-height;
-}
+// font
+$font-size: 19px;
+$font-weight-standard: 300;
+$font-weight-bold: 500;
 
-$block-height-lg: 450px;
-$block-height-m: 350px;
-$block-height-s: 300px;
-
-$media-direction: max;
-
-// breakpoints von bootstrap
-$breakpoints: (
-  'default': '',
-  'xs': 480px,
-  'sm': 576px,
-  'md': 768px,
-  'lg': 992px,
-  'xl': 1250px,
-);
-
-/* --------------------------------------------------
-   Breakpoint Mixin
-   -------------------------------------------------- */
-
-// $breakpoint = die Größe die ihr braucht.
-// Ihr könnt aber auch anstelle von 'xs', 's', 'm', 'l', 'xl' einfach einen Wert eintragen.
-// Das macht Sinn wenn man mal einen speziellen Breakpoint braucht. Den muss man dann nicht zwingend in die Sass Map packen.
-// $direction: $media-direction = das was ihr in den Settings eingestellt habt.
-@mixin breakpoint($breakpoint,$direction: $media-direction) {
-
-  // Es wird gecheckt ob der Wert in der Sass Map vorhanden ist
-  @if map-has-key($breakpoints, $breakpoint) {
-
-    // Ausgabe
-    @media (#{$direction}-width: #{map-get($breakpoints, $breakpoint)}) {
-      @content;
-    }
-  }
-
-    // Wenn ihr oben einen Wert eingetragen habt wird hier gecheckt ob ihr einen Einheit angehängt habt. Falls nicht wird px genutzt.
-  @else if unitless($breakpoint) {
-    $breakpoint: $breakpoint + 0px;
-
-    // Ausgabe
-    @media (#{$direction}-width: $breakpoint) {
-      @content;
-    }
-  }
-}
+// distances
+$horizontal-gap: 3rem;
+$left-menu-width: 280px;
