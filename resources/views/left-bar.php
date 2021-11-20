@@ -4,9 +4,9 @@
     </div>
     <div id="menu-area">
         <ul class="menu">
-            <li class="item"><a href="#">Startseite</a></li>
+            <li class="item"><a href="index.php">Startseite</a></li>
             <li class="item has-children">
-                <a href="#">Verein</a>
+                <a href="single.php">Verein</a>
                 <ul class="menu">
                     <li class="item">
                         <a href="#">Vorstand</a>
@@ -41,7 +41,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="item"><a href="#">Korbball</a></li>
+            <li class="item"><a href="category.php">Korbball</a></li>
         </ul>
     </div>
     <div class="fill-area">

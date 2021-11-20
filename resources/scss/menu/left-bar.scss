@@ -6,6 +6,10 @@
   display: flex;
   flex-flow: column;
 
+  @include breakpoint('lg') {
+    display: none;
+  }
+
   .fill-area {
     background: #ffffff;
   }

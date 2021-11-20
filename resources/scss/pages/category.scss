@@ -1,0 +1,62 @@
+$post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: $max-text-width;
+  margin-top: $content-gap*2;
+
+  .post {
+    flex: $post-width;
+    max-width: $post-width;
+    background: $navi;
+    padding-top: $content-gap*1.5;
+    margin-bottom: $horizontal-gap/2;
+    color: white;
+    position: relative;
+    padding-bottom: $content-gap*2;
+
+    &:nth-child(2n + 1) {
+      margin-right: $horizontal-gap/2;
+    }
+
+    @include breakpoint('md') {
+      flex: 100%;
+      max-width: unset;
+
+      &:nth-child(2n + 1) {
+        margin-right: 0;
+      }
+    }
+
+    .title, .meta, .abstract {
+      padding: 0 $content-gap 0 $content-gap;
+    }
+
+    .title {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .abstract {
+      font-weight: $font-weight-standard;
+    }
+
+    .read-more {
+      text-decoration: none;
+      text-align: center;
+      background: $dark;
+      padding: $content-gap/2 $content-gap;
+      transition-duration: $hover-duration;
+      color: white;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+
+      &:hover {
+        background: darken($dark, 10%);
+      }
+    }
+  }
+}

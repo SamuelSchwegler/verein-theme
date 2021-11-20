@@ -1,7 +1,13 @@
+// sizes
+$max-text-width: 900px;
+$min-text-width: 600px;
+$left-menu-width: 280px;
+
 // colors
 $blue: #0069b4;
 $cloud: #f0f0f0;
 $dark: #333;
+$navi: #004C82;
 
 $main-color: $blue;
 
@@ -12,4 +18,48 @@ $font-weight-bold: 500;
 
 // distances
 $horizontal-gap: 3rem;
-$left-menu-width: 280px;
+$content-gap: 16px;
+
+// animation
+$hover-duration: 0.2s;
+
+// breakpoints
+$media-direction: max;
+$breakpoints: (
+        'default': '',
+        'xs': 480px,
+        'sm': 576px,
+        'md': 768px,
+        'lg': 992px,
+        'xl': 1250px,
+);
+
+/* --------------------------------------------------
+   Breakpoint Mixin
+   -------------------------------------------------- */
+
+// $breakpoint = die Größe die ihr braucht.
+// Ihr könnt aber auch anstelle von 'xs', 's', 'm', 'l', 'xl' einfach einen Wert eintragen.
+// Das macht Sinn wenn man mal einen speziellen Breakpoint braucht. Den muss man dann nicht zwingend in die Sass Map packen.
+// $direction: $media-direction = das was ihr in den Settings eingestellt habt.
+@mixin breakpoint($breakpoint,$direction: $media-direction) {
+
+  // Es wird gecheckt ob der Wert in der Sass Map vorhanden ist
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Ausgabe
+    @media (#{$direction}-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+
+    // Wenn ihr oben einen Wert eingetragen habt wird hier gecheckt ob ihr einen Einheit angehängt habt. Falls nicht wird px genutzt.
+  @else if unitless($breakpoint) {
+    $breakpoint: $breakpoint + 0px;
+
+    // Ausgabe
+    @media (#{$direction}-width: $breakpoint) {
+      @content;
+    }
+  }
+}

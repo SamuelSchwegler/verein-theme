@@ -2,6 +2,7 @@
 
 @import 'menu/event';
 @import "menu/left-bar";
+@import "pages/category";
 
 * {
   box-sizing: border-box;
@@ -29,11 +30,19 @@ body {
   display: flex;
   flex-flow: column;
   min-height: 100vh;
+
+  @include breakpoint('lg') {
+    margin-left: 0;
+  }
 }
 
 #content {
   min-height: 100px;
   display: flex;
+
+  &.category {
+    flex-flow: column;
+  }
 }
 
 #footer {
@@ -58,14 +67,15 @@ body {
   }
 }
 
+.abstract {
+  font-weight: $font-weight-bold;
+}
+
 #text {
   flex: 1;
   padding: 4rem $horizontal-gap;
-  min-width: 800px;
-
-  p.abstract {
-    font-weight: $font-weight-bold;
-  }
+  min-width: $min-text-width;
+  max-width: $max-text-width;
 
   .meta > .date {
     margin-right: 2rem;
@@ -83,7 +93,7 @@ body {
 }
 
 a {
-  color:  $main-color;
+  color: $main-color;
 }
 
 .fill-area {
