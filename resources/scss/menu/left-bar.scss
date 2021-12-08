@@ -20,7 +20,7 @@
 
   img {
     width: $left-menu-width;
-    height: $left-menu-width;
+    height: auto;
     padding: 10px;
   }
 }
@@ -30,7 +30,7 @@
   margin: 0;
   padding: 0;
 
-  .item {
+  .menu-item {
     a {
       width: 100%;
       text-align: center;
@@ -52,7 +52,7 @@
       border-bottom: 1px solid #aaa;
     }
 
-    &.has-children > a:before {
+    &.menu-item-has-children a:before {
       content: '>';
       position: absolute;
       right: 0;
@@ -63,7 +63,7 @@
     }
   }
 
-  .menu {
+  .nav-expand-content {
     position: absolute;
     background: $main-color;
     height: 100vh;
@@ -74,7 +74,7 @@
     width: $left-menu-width;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 
-    .item a {
+    .menu-item a {
       background: $main-color;
       color: $cloud;
     }

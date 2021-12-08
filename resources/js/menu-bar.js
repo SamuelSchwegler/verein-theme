@@ -1,5 +1,5 @@
 
-$('.has-children > a').click(function(event) {
+$('.menu-item-has-children > a').click(function(event) {
 	toggleMenu($(this));
 });
 
@@ -22,7 +22,7 @@ function toggleMenu(element, action = 'open') {
 		menu.animate({left: '280px'});
 
 		setTimeout(function() {
-			element.closest('.has-children').addClass('sub-menu-open');
+			element.closest('.menu-item-has-children').addClass('sub-menu-open');
 			menu.addClass('open');
 		}, 1);
 	} else if(action === 'close') {
