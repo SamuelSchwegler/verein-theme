@@ -1,6 +1,5 @@
 <div id="footer">
     <div class="row">
-        <div class="col"></div>
         <div class="col">
             <h3>Links</h3>
             <p>
@@ -13,5 +12,6 @@
             Willisauerstrasse 11</br>
             6122 Menznau
         </div>
+        <div class="col"></div>
     </div>
 </div>
