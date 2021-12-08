@@ -17,6 +17,7 @@
 
 #logo-area {
   background: #ffffff;
+  height: $left-menu-width;
 
   img {
     width: $left-menu-width;
@@ -42,17 +43,22 @@
       font-weight: 500;
       position: relative;
 
-      &:hover, &.sub-menu-open a {
+      &:hover {
         background: $main-color;
         color: $cloud;
       }
+    }
+
+    &.sub-menu-open a {
+      background: $main-color;
+      color: $cloud;
     }
 
     &:not(:last-child) a {
       border-bottom: 1px solid #aaa;
     }
 
-    &.menu-item-has-children a:before {
+    &.menu-item-has-children > span > a:before {
       content: '>';
       position: absolute;
       right: 0;
@@ -70,13 +76,20 @@
     left: 0px;
     top: 0px;
     padding-top: $left-menu-width;
+    padding-left: 0;
     z-index: -1;
     width: $left-menu-width;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    list-style: none;
 
     .menu-item a {
       background: $main-color;
       color: $cloud;
+
+      &:hover {
+        background: $cloud;
+        color: $main-color;
+      }
     }
   }
 }
@@ -89,4 +102,28 @@
   height: 100vh;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
   clip-path: inset(0px -15px 0px 0px);
+}
+
+#overlay {
+  display: none;
+}
+
+body.sub-menu-open {
+  #content, #footer {
+    z-index: -2;
+  }
+
+  #overlay {
+    display: block;
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
 }

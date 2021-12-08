@@ -11,7 +11,11 @@
                         <h2 class="title"><?php the_title(); ?></h2>
                         <p class="meta">
                             <span class="date"><?php the_time('d.m.Y'); ?></span>
-                            <span class="breadcrumbs">Jugend</span>
+                            <span class="breadcrumbs">
+                                <?php
+                                if (function_exists('nav_breadcrumb')) nav_breadcrumb();
+                                ?>
+                            </span>
                         </p>
                         <div class="abstract">
                             <?php the_excerpt(); ?>
