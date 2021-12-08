@@ -39,6 +39,12 @@
         <div class="fill-area">
         </div>
         <div class="events">
+            <?php
+                if (function_exists('calendar_events')) {
+                    $events = calendar_events();
+                    print_r($events);
+                }
+            ?>
             <h5>Nächste Termine</h5>
             <div class="event">
                 <div class="symbol">

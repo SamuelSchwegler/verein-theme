@@ -48,7 +48,7 @@ function nav_breadcrumb()
                 echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
 
                 $title = substr(get_the_title(), 0, 35);
-                if(strlen($title) === 35) {
+                if (strlen($title) === 35) {
                     $title .= "...";
                 }
                 echo $before . $title . $after;
@@ -103,5 +103,10 @@ function nav_breadcrumb()
     }
 }
 
+include('resources/functions/CalendarEvents.php');
 include('resources/functions/menu-walker.php');
-?>
+
+function calendar_events(): array
+{
+    return (new CalendarEvents())->calendar_events();
+}
