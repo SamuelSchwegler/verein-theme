@@ -17,13 +17,77 @@ class CalendarEvents
     public function __construct()
     {
         $this->ical = $this->setupICal($this->calendar_url);
+        $this->ical = $this->eventsFromRange(time() - 24*3600, time() + 180*24*3600);
+    }
+
+    public function all_calendar_events(): array
+    {
+        $events_ical = [$this->ical][0];
+        $events = [];
+
+        foreach ($events_ical as $event) {
+            $summary = $event['SUMMARY'];
+            $description = $event['DESCRIPTION'];
+            $location = stripslashes($event['LOCATION']);
+            $location = str_replace(", Schweiz", "", $location);
+
+            $start = $this->iCalDateToUnixTimestamp($event['DTSTART']);
+            $end = $this->iCalDateToUnixTimestamp($event['DTEND']);
+            $group = $this->group($summary, $description);
+
+            $events[] = [
+                'start_ts' => $start,
+                'date' => date('d.m.y H:i', $start),
+                'end_ts' => $end,
+                'title' => $summary,
+                'location' => $location,
+                'description' => $description,
+                'event' => $this->event($summary, $description),
+                'group' => $group,
+                'img_src' => get_template_directory_uri() . '/public/media/calendar/' . $group . '.png'
+            ];
+        }
+
+        return $events;
     }
 
     public function calendar_events(): array
     {
-        $events = [$this->ical];
+        $all = $this->all_calendar_events();
+        $relevant = [];
+        $count = 0;
 
-        return $events;
+        $timestamp = time();
+
+        foreach ($all as $event) {
+            if ($event['end_ts'] > $timestamp) {
+                $relevant[] = $event;
+                $count++;
+
+                if ($count === 2)
+                    break;
+            }
+        }
+        return $relevant;
+    }
+
+    public function event(string $summary, string $description): string
+    {
+        $haystack = $summary . $description;
+        return match (true) {
+            stristr($haystack, 'Training') !== false => 'training',
+            stristr($haystack, 'Spiel') !== false, stristr($haystack, 'Runde') !== false, stristr($haystack, 'Match') !== false => 'game',
+            default => 'default',
+        };
+    }
+
+    public function group(string $summary, string $description): string
+    {
+        $haystack = $summary . $description;
+        return match (true) {
+            stristr($haystack, 'Korbball') !== false => 'basket',
+            default => 'default',
+        };
     }
 
     public function setupICal(string $filename)
@@ -153,7 +217,7 @@ class CalendarEvents
         //Z = UTC Time
         $shift = 0;
         if (str_contains($icalDate, 'Z')) {
-            $shift = get_timezone_offset('UTC', 'Europe/Berlin');
+            $shift = $this->get_timezone_offset('UTC', 'Europe/Berlin');
 
         }
 
@@ -218,7 +282,7 @@ class CalendarEvents
      */
     public function eventsFromRange($rangeStart = false, $rangeEnd = false): bool|array
     {
-        $events = $this->sortEventsWithOrder($this->events(), SORT_DESC);
+        $events = $this->sortEventsWithOrder($this->events(), SORT_ASC);
         if (!$events) {
             return false;
         }
@@ -277,7 +341,7 @@ class CalendarEvents
         return $extendedEvents;
     }
 
-    function get_timezone_offset($remote_tz, $origin_tz = null)
+    public function get_timezone_offset($remote_tz, $origin_tz = null): bool|int
     {
         if ($origin_tz === null) {
             if (!is_string($origin_tz = date_default_timezone_get())) {
@@ -419,8 +483,7 @@ echo('<div class="sidebar-box"><h2>Nächster Anlass</h2>
             <col style="width: 75%">
         </colgroup>');
 foreach ($anlaesse as $anlass) {
-    $start_zeit = $_SESSION['ical']->iCalDateToUnixTimestamp($anlass['DTSTART']);
-    $end_zeit = $_SESSION['ical']->iCalDateToUnixTimestamp($anlass['DTEND']);
+
     echo('<tr>
                 <td><img src="' . get_stylesheet_directory_uri() . '/bilder/sport/anlass.png" class="symbol"></td>
                 <td>' . strftime("%A", $start_zeit) . ', ' . date("d.m.", $start_zeit) . '<br>' . $anlass['SUMMARY'] . '<br>' . $anlass['LOCATION'] . '</td>
