@@ -1,129 +1,93 @@
-#navigation-bar {
-  height: 100vh;
-  z-index: 0;
-  position: fixed;
-  width: $left-menu-width;
-  display: flex;
-  flex-flow: column;
-
-  @include breakpoint('lg') {
+@include breakpoint('lg', 'min') {
+  .mobile-menu, .menu-toggle {
     display: none;
   }
 
-  .fill-area {
-    background: #ffffff;
-  }
-}
+  #menu-area .menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-#logo-area {
-  background: #ffffff;
-  height: $left-menu-width;
+    .menu-item {
+      a {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        background: #ffffff;
+        display: block;
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
 
-  img {
-    width: $left-menu-width;
-    height: auto;
-    padding: 10px;
-  }
-}
+        &:hover {
+          background: $main-color;
+          color: $cloud;
+        }
+      }
 
-#menu-area .menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  .menu-item {
-    a {
-      width: 100%;
-      text-align: center;
-      padding: 10px;
-      background: #ffffff;
-      display: block;
-      color: #333;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-
-      &:hover {
+      &.sub-menu-open a {
         background: $main-color;
         color: $cloud;
       }
+
+      &:not(:last-child) a {
+        border-bottom: 1px solid #aaa;
+      }
+
+      &.menu-item-has-children > span > a:before {
+        content: '>';
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        padding: 10px;
+        vertical-align: middle;
+      }
     }
 
-    &.sub-menu-open a {
-      background: $main-color;
-      color: $cloud;
-    }
-
-    &:not(:last-child) a {
-      border-bottom: 1px solid #aaa;
-    }
-
-    &.menu-item-has-children > span > a:before {
-      content: '>';
+    .nav-expand-content {
       position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      padding: 10px;
-      vertical-align: middle;
-    }
-  }
-
-  .nav-expand-content {
-    position: absolute;
-    background: $main-color;
-    height: 100vh;
-    left: 0px;
-    top: 0px;
-    padding-top: $left-menu-width;
-    padding-left: 0;
-    z-index: -1;
-    width: $left-menu-width;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    list-style: none;
-
-    .menu-item a {
       background: $main-color;
-      color: $cloud;
+      height: 100vh;
+      left: 0px;
+      top: 0px;
+      padding-top: $left-menu-width;
+      padding-left: 0;
+      z-index: -1;
+      width: $left-menu-width;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+      list-style: none;
 
-      &:hover {
-        background: $cloud;
-        color: $main-color;
+      .menu-item a {
+        background: $main-color;
+        color: $cloud;
+
+        &:hover {
+          background: $cloud;
+          color: $main-color;
+        }
       }
     }
   }
-}
 
-.shadow-element {
-  position: fixed;
-  top: 0px;
-  left: $left-menu-width;
-  width: 0.1px;
-  height: 100vh;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
-  clip-path: inset(0px -15px 0px 0px);
-}
-
-#overlay {
-  display: none;
-}
-
-body.sub-menu-open {
-  #content, #footer {
-    z-index: -2;
+  .shadow-element {
+    position: fixed;
+    top: 0px;
+    left: $left-menu-width;
+    width: 0.1px;
+    height: 100vh;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+    clip-path: inset(0px -15px 0px 0px);
   }
 
   #overlay {
-    display: block;
-    position: fixed; /* Sit on top of the page content */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-    z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
+    display: none;
+  }
+
+  body.sub-menu-open {
+    #content, #footer {
+      z-index: -2;
+    }
   }
 }
