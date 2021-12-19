@@ -37,6 +37,10 @@
 }
 
 .nav-is-toggled, body.sub-menu-open {
+  #content, #footer {
+    z-index: -2;
+  }
+
   #overlay {
     display: block;
     position: fixed; /* Sit on top of the page content */
@@ -50,6 +54,16 @@
     z-index: -1; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
   }
+}
+
+.shadow-element {
+  position: fixed;
+  top: 0px;
+  left: $left-menu-width;
+  width: 0.1px;
+  height: 100vh;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
+  clip-path: inset(0px -15px 0px 0px);
 }
 
 @import "left-bar";

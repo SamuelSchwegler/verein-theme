@@ -72,6 +72,6 @@
             ?>
         </div>
     </div>
-    <div class="shadow-element hide-mobile"></div>
-    <div id="overlay hide-mobile"></div>
+    <div class="shadow-element"></div>
+    <div id="overlay"></div>
     <div id="main">

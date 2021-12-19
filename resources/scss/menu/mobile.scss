@@ -18,7 +18,7 @@
   }
 
 
-  button.menu-togle {
+  button.menu-toggle {
     top: 25px !important;
     z-index: 4;
     display: block;
@@ -35,7 +35,7 @@
 
     .mobile-menu {
       height: calc(100vh - #{$mobile-header-height});
-      width: 75%;
+      width: $mobile-menu-width;
       background: $main-color;
       position: absolute;
       right: 0;

@@ -71,23 +71,7 @@
     }
   }
 
-  .shadow-element {
-    position: fixed;
-    top: 0px;
-    left: $left-menu-width;
-    width: 0.1px;
-    height: 100vh;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
-    clip-path: inset(0px -15px 0px 0px);
-  }
-
   #overlay {
     display: none;
-  }
-
-  body.sub-menu-open {
-    #content, #footer {
-      z-index: -2;
-    }
   }
 }
