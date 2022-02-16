@@ -9,7 +9,7 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
   .post {
     flex: $post-width;
     max-width: $post-width;
-    background: $navi;
+    background: $blue;
     padding-top: $content-gap*1.5;
     margin-bottom: $horizontal-gap/2;
     color: white;
@@ -40,6 +40,14 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
 
     .abstract {
       font-weight: $font-weight-standard;
+    }
+
+    .breadcrumbs a {
+      color: white;
+
+      &:hover {
+        color: $dark;
+      }
     }
 
     .read-more {

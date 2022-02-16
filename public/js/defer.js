@@ -34,6 +34,10 @@ $(function () {
         toggleMenu($(this), 'close');
     });
 
+    $('div#main').click(function (event) {
+        toggleMenu($(this), 'close');
+    });
+
     $('.menu-toggle').click(function () {
         var elem = $('.current_page_item').first();
         //funktioniert

@@ -18,6 +18,10 @@ body {
   font-family: 'Ubuntu', sans-serif;
   font-weight: $font-weight-standard;
   font-size: $font-size;
+
+  @include breakpoint('md') {
+    font-size: $font-size * 0.8;
+  }
 }
 
 #page {
@@ -40,21 +44,59 @@ body {
   min-height: 100px;
   display: flex;
 
+  @include breakpoint('lg') {
+    flex-direction: column-reverse;
+    padding-bottom: $content-gap;
+    margin-top: $mobile-header-height;
+
+    #text, #page-img {
+      width: 100%;
+      min-width: unset;
+      margin-top: 0;
+      padding: 0 $content-gap $content-gap;
+    }
+
+    #page-img {
+      justify-content: center;
+      display: flex;
+
+      img {
+        max-width: 500px;
+      }
+    }
+  }
+
   &.category {
     flex-flow: column;
   }
 }
 
 #footer {
-  background: $dark;
+  background: $blue;
   width: 100%;
   padding: 3rem;
   color: white;
   bottom: 0px;
   left: 0px;
 
+  @include breakpoint('md') {
+    padding: $content-gap;
+  }
+
   > .row {
     max-width: 800px;
+
+    @include breakpoint('sm') {
+      flex-direction: column;
+    }
+  }
+
+  a {
+    color: white;
+
+    &:hover {
+      color: $dark;
+    }
   }
 
 }
