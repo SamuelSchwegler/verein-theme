@@ -31,7 +31,8 @@
     padding: 10px;
 
     @include breakpoint('lg') {
-      width: $mobile-header-height;
+      height: $mobile-header-height;
+      width: auto;
     }
   }
 }

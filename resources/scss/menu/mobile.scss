@@ -2,6 +2,7 @@
   .mobile-menu {
     display: inline-block;
     overflow-y: auto;
+    height: 0;
   }
 
   .hide-mobile {
@@ -285,7 +286,7 @@
     display: block;
     opacity: 1;
     background-color: transparent;
-    position: absolute;
+    position: fixed;
     z-index: 2;
     top: ($mobile-header-height - 30px)/2;
     right: $gap;

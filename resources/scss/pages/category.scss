@@ -36,6 +36,10 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
     .title {
       font-size: 22px;
       margin: 0;
+
+      @include breakpoint('md') {
+        font-size: 20px;
+      }
     }
 
     .abstract {

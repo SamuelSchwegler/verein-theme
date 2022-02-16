@@ -53,12 +53,16 @@ body {
       width: 100%;
       min-width: unset;
       margin-top: 0;
+    }
+
+    #text {
       padding: 0 $content-gap $content-gap;
     }
 
     #page-img {
       justify-content: center;
       display: flex;
+      padding: 0 0 $content-gap;
 
       img {
         max-width: 500px;
