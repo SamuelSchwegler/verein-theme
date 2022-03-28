@@ -2,6 +2,15 @@
 add_theme_support('post-thumbnails', array('post', 'page'));
 add_post_type_support('page', 'excerpt');
 
+function register_my_menus() {
+    register_nav_menus(
+        array(
+            'main' => __( 'Header Menu' )
+        )
+    );
+}
+add_action( 'init', 'register_my_menus' );
+
 function nav_breadcrumb()
 {
     $delimiter = '>';
