@@ -2,7 +2,7 @@
 
 class CalendarEvents
 {
-    public string $calendar_url = 'https://calendar.google.com/calendar/ical/06pgrdfs6o5p5urpn0q417cklg%40group.calendar.google.com/public/basic.ics';
+    public string $calendar_url = 'https://calendar.google.com/calendar/ical/livl4dcs89n80ibouh01kk68i0%40group.calendar.google.com/public/basic.ics';
     public $ical;
 
     /* How many ToDos are in this ical? */

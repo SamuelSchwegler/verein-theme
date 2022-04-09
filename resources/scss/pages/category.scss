@@ -5,8 +5,10 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
   flex-wrap: wrap;
   max-width: $max-text-width;
   margin-top: $content-gap*2;
+  list-style: none;
+  padding-left: 0;
 
-  .post {
+  .post, > li {
     flex: $post-width;
     max-width: $post-width;
     background: $blue;
@@ -33,7 +35,7 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
       padding: 0 $content-gap 0 $content-gap;
     }
 
-    .title {
+    .title, a {
       font-size: 22px;
       margin: 0;
 
