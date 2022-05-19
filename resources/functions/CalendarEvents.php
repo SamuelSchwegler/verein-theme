@@ -286,7 +286,6 @@ class CalendarEvents
         $start = Carbon::parse($event['DTSTART']);
         $end = Carbon::parse($event['DTEND']);
         $duration = $start->diffInMinutes($end);
-        echo $start->format('d.m.Y');
 
         $period = null;
 
