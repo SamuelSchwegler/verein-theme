@@ -1,4 +1,7 @@
 <?php
+require __DIR__ . '/../../vendor/autoload.php';
+
+use Carbon\Carbon;
 
 class CalendarEvents
 {
@@ -17,7 +20,7 @@ class CalendarEvents
     public function __construct()
     {
         $this->ical = $this->setupICal($this->calendar_url);
-        $this->ical = $this->eventsFromRange(time() - 24*3600, time() + 180*24*3600);
+        $this->ical = $this->eventsFromRange(time() - 24 * 3600, time() + 180 * 24 * 3600);
     }
 
     public function all_calendar_events(): array
@@ -253,8 +256,54 @@ class CalendarEvents
      */
     public function events(): mixed
     {
-        $array = $this->cal;
-        return $array['VEVENT'];
+        $events = [];
+
+        foreach ($this->cal['VEVENT'] as $vevent) {
+            if (array_key_exists('RRULE', $vevent)) {
+                $this->generateRepeatingEvent($vevent, $events);
+            } else {
+                $events[] = $vevent;
+            }
+        }
+
+        return $events;
+    }
+
+    /**
+     * Erstellt aus einer Sequenz mehrere Einträge
+     * @param array $event
+     * @param array $events
+     * @return void
+     */
+    public function generateRepeatingEvent(array $event, array &$events)
+    {
+        $rules = [];
+        $rules_expoded = explode(';', $event['RRULE']);
+        foreach ($rules_expoded as $rule) {
+            $r = explode('=', $rule);
+            $rules[$r[0]] = $r[1];
+        }
+        $start = Carbon::parse($event['DTSTART']);
+        $end = Carbon::parse($event['DTEND']);
+        $duration = $start->diffInMinutes($end);
+        echo $start->format('d.m.Y');
+
+        $period = null;
+
+        switch ($rules['FREQ']) {
+            case "WEEKLY":
+                $period = $start->toPeriod(Carbon::now()->addYear(), 7, 'days');
+                break;
+        }
+
+        foreach ($period as $day) {
+            $add_event = $event;
+            $add_event['DTSTART'] = $day->format('Ymd') . 'T' . $day->format('His');
+            $day->addMinutes($duration);
+            $add_event['DTEND'] = $day->format('Ymd') . 'T' . $day->format('His');
+            unset($add_event['RRULE']);
+            $events[] = $add_event;
+        }
     }
 
     /**
@@ -356,143 +405,3 @@ class CalendarEvents
         return $offset;
     }
 }
-
-/*
-
-$timestamp = date_timestamp_get(date_create());
-$trainings = [];
-$spiele = [];
-$anlaesse = [];
-
-foreach ($_SESSION['events'] as $event) {
-    $tsp_end = $_SESSION['ical']->iCalDateToUnixTimestamp($event['DTEND']);
-    if ($event != null && $tsp_end > $timestamp) {
-        if ((str_contains($event['SUMMARY'], 'Training')) || (str_contains($event['DESCRIPTION'], 'Training'))) {
-            array_push($trainings, $event);
-        } else if ((str_contains($event['SUMMARY'], 'Spiel')) || (str_contains($event['DESCRIPTION'], 'Spiel')) || (str_contains($event['SUMMARY'], 'Runde')) || (strpos($event['SUMMARY'], 'Match') !== false) || (strpos($event['DESCRIPTION'], 'Runde') !== false) || (strpos($event['DESCRIPTION'], 'Match') !== false) || (strpos($event['DESCRIPTION'], 'Auswärtsspiel') !== false) || (strpos($event['SUMMARY'], 'Auswärtsspiel') !== false)) {
-            array_push($spiele, $event);
-        } else {
-            array_push($anlaesse, $event);
-        }
-    }
-}
-
-echo('
-	<div class="sidebar-box">
-	<h2>Nächste Trainings</h2>
-	<table style="width: 100%">
-        <colgroup>
-            <col style="width: 25%">
-            <col style="width: 75%">
-        </colgroup>');
-
-$count = 0;
-foreach ($trainings as $training) {
-    $sport = "undefined";
-    if (str_contains($training['SUMMARY'], 'Korbball')) {
-        $sport = "Korbball";
-    } else if (str_contains($training['SUMMARY'], 'Unihockey')) {
-        $sport = "Unihockey";
-    } else if (str_contains($training['SUMMARY'], 'Fussball')) {
-        $sport = "Fussball";
-    }
-
-    $start_zeit = $_SESSION['ical']->iCalDateToUnixTimestamp($training['DTSTART']);
-    $end_zeit = $_SESSION['ical']->iCalDateToUnixTimestamp($training['DTEND']);
-
-    if ($training['LOCATION'] != null) {
-        $location = stripslashes($training['LOCATION']);
-        $location = str_replace(", Schweiz", "", $location);
-    } else {
-        if (strftime("%A", $start_zeit) == "Mittwoch") {
-            $location = "Rickenhalle";
-        } else if (strftime("%A", $start_zeit) == "Freitag") {
-            $location = "Schulhaus";
-        } else {
-            $location = "";
-        }
-    }
-    echo('<tr>
-                <td>');
-    if ($sport == 'undefined') {
-        echo($training['SUMMARY']);
-    } else {
-        echo('<img src="' . get_stylesheet_directory_uri() . '/bilder/sport/' . $sport . '.png" class="symbol">');
-    }
-    echo('</td>
-                <td>' . strftime("%A", $start_zeit) . ', ' . date("d.m.", $start_zeit) . '<br>' . date('H:i', $start_zeit) . '<br>' . $location . '</td>
-            </tr>');
-    $count++;
-    if ($count > 2) {
-        break;
-    }
-}
-if ($count == 0) {
-    echo('<tr><td></td><td>Momentan keine</td></tr>');
-}
-echo('</table></div>');
-
-$count = 0;
-echo('<div class="sidebar-box"><h2>Nächstes Spiel</h2>
-	<table style="width: 100%">
-        <colgroup>
-            <col style="width: 25%">
-            <col style="width: 75%">
-        </colgroup>');
-foreach ($spiele as $spiel) {
-    $sport = "undefined";
-    if (strpos($spiel['SUMMARY'], 'Korbball') !== false || strpos($spiel['SUMMARY'], 'ISM') !== false || strpos($spiel['DESCRIPTION'], 'Korbball') !== false) {
-        $sport = "Korbball";
-    } else if (strpos($spiel['SUMMARY'], 'Unihockey') !== false || strpos($spiel['DESCRIPTION'], 'Unihockey') !== false) {
-        $sport = "Unihockey";
-    } else if (strpos($spiel['SUMMARY'], 'Fussball') !== false || strpos($spiel['DESCRIPTION'], 'Fussball') !== false) {
-        $sport = "Fussball";
-    }
-
-    $start_zeit = $_SESSION['ical']->iCalDateToUnixTimestamp($spiel['DTSTART']);
-    $end_zeit = $_SESSION['ical']->iCalDateToUnixTimestamp($spiel['DTEND']);
-    if ($sport !== "undefined") {
-        $file = get_stylesheet_directory_uri() . '/bilder/sport/' . $sport . '.png';
-    } else {
-        $file = get_stylesheet_directory_uri() . '/bilder/sport/anlass.png';
-    }
-
-    $location = stripslashes($spiel['LOCATION']);
-    $location = str_replace(", Schweiz", "", $location);
-    echo('<tr>
-                <td><img src="' . $file . '" class="symbol"></td>
-                <td>' . strftime("%A", $start_zeit) . ', ' . date("d.m.", $start_zeit) . '<br>');
-    if (date('H:i', $start_zeit) !== "00:00") {
-        echo(date('H:i', $start_zeit) . ', ');
-    }
-    echo($spiel['SUMMARY'] . '<br>' . $location . '</td>
-            </tr>');
-    $count++;
-    break;
-}
-if ($count == 0) {
-    echo('<tr><td></td><td>Momentan keine</td></tr>');
-}
-echo('</table></div>');
-
-$count = 0;
-echo('<div class="sidebar-box"><h2>Nächster Anlass</h2>
-	<table style="width: 100%">
-        <colgroup>
-            <col style="width: 25%">
-            <col style="width: 75%">
-        </colgroup>');
-foreach ($anlaesse as $anlass) {
-
-    echo('<tr>
-                <td><img src="' . get_stylesheet_directory_uri() . '/bilder/sport/anlass.png" class="symbol"></td>
-                <td>' . strftime("%A", $start_zeit) . ', ' . date("d.m.", $start_zeit) . '<br>' . $anlass['SUMMARY'] . '<br>' . $anlass['LOCATION'] . '</td>
-            </tr>');
-    $count++;
-    break;
-}
-if ($count == 0) {
-    echo('<tr><td></td><td>Momentan keine</td></tr>');
-}
-echo('</table></div>');
-*/
