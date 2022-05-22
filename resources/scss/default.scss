@@ -1,5 +1,5 @@
 @import "vars";
-
+@import "settings";
 @import "wp-override";
 
 @import 'menu/event';
@@ -17,7 +17,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: var(--default-font-family), sans-serif;
   font-weight: $font-weight-standard;
   font-size: $font-size;
 
@@ -78,7 +78,7 @@ body {
 }
 
 #footer {
-  background: $blue;
+  background: var(--footer-color);
   width: 100%;
   padding: 3rem;
   color: white;
@@ -141,10 +141,14 @@ body {
 }
 
 a {
-  color: $main-color;
+  color: var(--main-color);
 }
 
 .fill-area {
   width: 100%;
   flex: 1;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--title-font-family);
 }

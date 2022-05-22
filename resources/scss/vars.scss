@@ -1,3 +1,7 @@
+@use "sass:meta";
+@use "sass:math";
+@use "settings";
+
 // sizes
 $max-text-width: 900px;
 $min-text-width: 600px;
@@ -6,24 +10,11 @@ $left-menu-width: 280px;
 $mobile-header-height: 80px;
 $mobile-menu-width: 75%;
 
-// colors
-$blue: #0069b4;
-$cloud: #f0f0f0;
-$dark: #333;
-$navi: #004C82;
-
-$main-color: $blue;
-
-// font
-$font-size: 19px;
-$font-weight-standard: 300;
-$font-weight-bold: 500;
-
 // distances
 $horizontal-gap: 3rem;
 $content-gap: 16px;
 $gap: 1rem;
-$small-gap: $gap/2;
+$small-gap: math.div($gap, 2);
 
 // animation
 $hover-duration: 0.2s;
@@ -66,5 +57,12 @@ $breakpoints: (
     @media (#{$direction}-width: $breakpoint) {
       @content;
     }
+  }
+}
+
+html {
+  $variables: meta.module-variables('settings');
+  @each $name, $value in $variables {
+    --#{$name}: #{$value};
   }
 }

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @include breakpoint('lg') {
   .mobile-menu {
     display: inline-block;
@@ -37,7 +39,7 @@
     .mobile-menu {
       height: calc(100vh - #{$mobile-header-height});
       width: $mobile-menu-width;
-      background: $main-color;
+      background: var(--main-color);
       position: absolute;
       right: 0;
       top: $mobile-header-height;
@@ -112,7 +114,7 @@
           padding: 0.875em calc(7.5% - 10px);
           display: block;
           margin-left: 10px;
-          background: $main-color;
+          background: var(--main-color);
 
           &:hover {
             $background: $dark;
@@ -120,7 +122,7 @@
         }
 
         &:hover {
-          background: $main-color;
+          background: var(--main-color);
           color: white;
         }
 
@@ -153,7 +155,7 @@
       height: 100%;
       -webkit-transform: translateX(100%);
       transform: translateX(100%);
-      background-color: $main-color;
+      background-color: var(--main-color);
       transition: 0.3s;
       visibility: hidden;
       border-top: none !important;
@@ -288,7 +290,7 @@
     background-color: transparent;
     position: fixed;
     z-index: 2;
-    top: ($mobile-header-height - 30px)/2;
+    top: math.div(($mobile-header-height - 30px),2);
     right: $gap;
     border: none;
     width: 36px;

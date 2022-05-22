@@ -1,3 +1,4 @@
+@use "sass:math";
 $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
 
 .posts {
@@ -11,15 +12,15 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
   .post, > li {
     flex: $post-width;
     max-width: $post-width;
-    background: $blue;
+    background: var(--main-color);
     padding-top: $content-gap*1.5;
-    margin-bottom: $horizontal-gap/2;
+    margin-bottom: math.div($horizontal-gap,2);
     color: white;
     position: relative;
     padding-bottom: $content-gap*2;
 
     &:nth-child(2n + 1) {
-      margin-right: $horizontal-gap/2;
+      margin-right: math.div($horizontal-gap,2);
     }
 
     @include breakpoint('md') {
@@ -60,7 +61,7 @@ $post-width: calc(50% - #{$horizontal-gap} / 4); // Grösse eines Post Kasten.
       text-decoration: none;
       text-align: center;
       background: $dark;
-      padding: $content-gap/2 $content-gap;
+      padding: math.div($content-gap, 2) $content-gap;
       transition-duration: $hover-duration;
       color: white;
       position: absolute;

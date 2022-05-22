@@ -21,13 +21,13 @@
         position: relative;
 
         &:hover {
-          background: $main-color;
+          background: var(--main-color);
           color: $cloud;
         }
       }
 
       &.sub-menu-open a {
-        background: $main-color;
+        background: var(--main-color);
         color: $cloud;
       }
 
@@ -48,7 +48,7 @@
 
     .nav-expand-content {
       position: absolute;
-      background: $main-color;
+      background: var(--main-color);
       height: 100vh;
       left: 0px;
       top: 0px;
@@ -60,12 +60,12 @@
       list-style: none;
 
       .menu-item a {
-        background: $main-color;
+        background: var(--main-color);
         color: $cloud;
 
         &:hover {
           background: $cloud;
-          color: $main-color;
+          color: var(--main-color);
         }
       }
     }
