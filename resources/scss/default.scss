@@ -121,7 +121,7 @@ body {
 
 #text {
   flex: 1;
-  padding: 4rem $horizontal-gap;
+  padding: 4rem var(--horizontal-gap);
   min-width: $min-text-width;
   max-width: $max-text-width;
 
@@ -132,7 +132,7 @@ body {
 
 #page-img {
   flex: 1;
-  margin: 4rem $horizontal-gap 0 0;
+  margin: 4rem var(--horizontal-gap) 0 0;
 
   > img {
     width: 100%;
