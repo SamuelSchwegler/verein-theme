@@ -21,7 +21,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
 </head>
-<body>
+<body <?php body_class(); ?>>
+<?php wp_body_open(); ?>
 <div id="page">
     <button class="menu-toggle"></button>
     <div id="navigation-bar">
