@@ -14,14 +14,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
-    <script>
-        $.noConflict();
-        jQuery(document).ready(function(){
-            jQuery("button").click(function(){
-                jQuery("p").text("jQuery is still working!");
-            });
-        });
-    </script>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
