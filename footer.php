@@ -1,6 +1,6 @@
 <?php
     $json = file_get_contents(get_stylesheet_directory().'/config.json');
-    $config = json_decode($json, 1);
+    $config = json_decode($json, 0);
 ?>
             <div id="footer">
                 <div class="row">
