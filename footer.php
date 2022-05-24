@@ -1,5 +1,5 @@
 <?php
-    $json = file_get_contents(__DIR__.'/config.json');
+    $json = file_get_contents(get_stylesheet_directory().'/config.json');
     $config = json_decode($json, 1);
 ?>
             <div id="footer">
