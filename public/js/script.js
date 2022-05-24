@@ -1,7 +1,7 @@
 // JS Script to load in header
-$(function(){
+jQuery(function(){
 	// mobile
-	$('button.menu-toggle').on('click', function(){
-	    $('body').toggleClass('nav-is-toggled');
+	jQuery('button.menu-toggle').on('click', function(){
+		jQuery('body').toggleClass('nav-is-toggled');
 	});
 });
