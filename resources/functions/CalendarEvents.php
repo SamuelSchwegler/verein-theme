@@ -19,6 +19,12 @@ class CalendarEvents
 
     public function __construct()
     {
+        $json = file_get_contents(get_stylesheet_directory().'/config.json');
+        $config = json_decode($json, 0);
+
+        if(isset($config->calendar_url)) {
+            $this->calendar_url = $config->calendar_url;
+        }
         $this->ical = $this->setupICal($this->calendar_url);
         $this->ical = $this->eventsFromRange(time() - 24 * 3600, time() + 180 * 24 * 3600);
     }
