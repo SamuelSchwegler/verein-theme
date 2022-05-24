@@ -1,0 +1,12 @@
+{
+  "footer_address": {
+    "name": "Samuel Schweger",
+    "street": "Willisauerstrasse 11",
+    "postcode": "6122",
+    "city": "Menznau"
+  },
+  "footer_links": {
+    "SUB": "https://sub.unibe.ch/",
+    "Universität Bern": "https://unibe.ch"
+  }
+}
