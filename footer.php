@@ -8,7 +8,7 @@
                         <h3>Links</h3>
                         <p>
                             <?php foreach($config->footer_links as $from => $link) { ?>
-                                <a href="<?php echo $link; ?>"><?php echo $link; ?></a><br>
+                                <a href="<?php echo $link; ?>"><?php echo $from; ?></a><br>
                             <?php } ?>
                         </p>
                     </div>
