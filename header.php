@@ -10,16 +10,18 @@
         echo get_template_directory_uri() . '/';
     } ?>style.css">
     <meta charset="utf-8">
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/public/js/script.js"></script>
-    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/public/js/defer.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
     <?php wp_head(); ?>
+    <script>
+        $.noConflict();
+        jQuery(document).ready(function(){
+            jQuery("button").click(function(){
+                jQuery("p").text("jQuery is still working!");
+            });
+        });
+    </script>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
