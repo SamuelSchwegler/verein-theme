@@ -19,10 +19,10 @@ class CalendarEvents
 
     public function __construct()
     {
-        $json = file_get_contents(get_stylesheet_directory().'/config.json');
+        $json = file_get_contents(get_stylesheet_directory() . '/config.json');
         $config = json_decode($json, 0);
 
-        if(isset($config->calendar_url)) {
+        if (isset($config->calendar_url)) {
             $this->calendar_url = $config->calendar_url;
         }
         $this->ical = $this->setupICal($this->calendar_url);
@@ -51,9 +51,8 @@ class CalendarEvents
                 'title' => $summary,
                 'location' => $location,
                 'description' => $description,
-                'event' => $this->event($summary, $description),
                 'group' => $group,
-                'img_src' => get_template_directory_uri() . '/public/media/calendar/' . $group . '.png'
+                'img_src' => get_template_directory_uri() . '/public/media/calendar/' . $group
             ];
         }
 
@@ -80,26 +79,23 @@ class CalendarEvents
         return $relevant;
     }
 
-    public function event(string $summary, string $description): string
-    {
-        $haystack = $summary . $description;
-        return match (true) {
-            stristr($haystack, 'Training') !== false => 'training',
-            stristr($haystack, 'Spiel') !== false, stristr($haystack, 'Runde') !== false, stristr($haystack, 'Match') !== false => 'game',
-            default => 'default',
-        };
-    }
-
     public function group(string $summary, string $description): string
     {
+        $json = file_get_contents(get_stylesheet_directory() . '/resources/functions/calendar-config.json');
+        $config = json_decode($json, 0);
+
         $haystack = $summary . $description;
-        return match (true) {
-            stristr($haystack, 'Korbball') !== false => 'basket',
-            default => 'default',
-        };
+
+        foreach ($config as $file => $term) {
+            if (stristr($haystack, $term) !== false) {
+                return $file;
+            }
+        }
+
+        return 'default.png';
     }
 
-    public function setupICal(string $filename)
+    public function setupICal(string $filename): bool|array
     {
         $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         if (stristr($lines[0], 'BEGIN:VCALENDAR') === false) {

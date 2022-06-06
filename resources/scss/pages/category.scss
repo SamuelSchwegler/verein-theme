@@ -1,4 +1,5 @@
 @use "sass:math";
+
 $post-width: calc(50% - var(--horizontal-gap) / 4); // Grösse eines Post Kasten.
 
 .posts {

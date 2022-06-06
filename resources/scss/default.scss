@@ -109,6 +109,7 @@ body {
 
 .row {
   display: flex;
+  gap: 10px;
 
   > .col {
     flex: 1;
@@ -152,4 +153,8 @@ a {
 h1, h2, h3, h4, h5 {
   font-family: var(--title-font-family);
   font-weight: var(--title-font-weight);
+}
+
+iframe.calendar {
+  border: 0;
 }

@@ -38,7 +38,7 @@ jQuery(function () {
         toggleMenu(jQuery(this), 'close');
     });
 
-    jQuery('.menu-toggle').click(function () {
+    jQuery('.menu-main-container').click(function () {
         var elem = jQuery('.current_page_item').first();
         //funktioniert
         if (elem.parent().hasClass('nav-expand-content')) {
