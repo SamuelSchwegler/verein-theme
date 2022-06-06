@@ -86,9 +86,11 @@ class CalendarEvents
 
         $haystack = $summary . $description;
 
-        foreach ($config as $file => $term) {
-            if (stristr($haystack, $term) !== false) {
-                return $file;
+        foreach ($config as $file => $terms) {
+            foreach($terms as $term) {
+                if (stristr($haystack, $term) !== false) {
+                    return $file;
+                }
             }
         }
 
