@@ -36,7 +36,7 @@
             <div id="mobile-search-form" class="search-form-outer">
                 <div class="search-form-wrapper">
                     <form method="get" id="searchform-mobile" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <input type="text" class="form-control" style="color:white;" value="<?php echo wp_specialchars($s, 1); ?>" placeholder="Suchen..." name="s" id="s-mobile" />
+                        <input type="text" class="form-control" style="color:white;" value="<?php echo esc_html($s); ?>" placeholder="Suchen..." name="s" id="s-mobile" />
                     </form>
                     <div class="search-form-icon"><a id="search-icon-wrapper"><i class="fas fa-search"></i></a></div>
                 </div>
