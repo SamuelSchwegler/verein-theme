@@ -59,30 +59,30 @@ function toggleMenu(element, action = 'open') {
 		jQuery('.sub-menu-open').removeClass('sub-menu-open');
 		jQuery('body').removeClass('sub-menu-open');
 	}
-
-	/**
-	 * Menü
-	 */
-	jQuery('.mobile-menu .menu-item-has-children > span').append('<span class="next">></span>');
-
-	let navExpand = [].slice.call(document.querySelectorAll('.mobile-menu .menu-item-has-children'));
-	let backLink = '<li class="menu-item">\n\t<span><a class="nav-link nav-back-link" href="javascript:;">\n\t\t<span class="next"><</span>Zurück\n\t</a></span>\n</li>';
-
-	navExpand.forEach(item => {
-		if (item.querySelector('.nav-expand-content') !== null) {
-			item.querySelector('.nav-expand-content').insertAdjacentHTML('afterbegin', backLink);
-		}
-
-		if (item.querySelector('.next') !== null) {
-			item.querySelector('.next').parentNode.addEventListener('click', () => item.classList.add('active'))
-		}
-
-		if (item.querySelector('.nav-back-link') !== null) {
-			item.querySelector('.nav-back-link').addEventListener('click', () => item.classList.remove('active'));
-		}
-	});
-
-	// remove active class from all except first
-	jQuery('.menu-item-home.active:not(:first)').removeClass("active");
-	jQuery('.menu-item-home.current_page_item:not(:first)').removeClass("active");
 }
+
+/**
+ * Menü
+ */
+jQuery('.mobile-menu .menu-item-has-children > span').append('<span class="next">></span>');
+
+let navExpand = [].slice.call(document.querySelectorAll('.mobile-menu .menu-item-has-children'));
+let backLink = '<li class="menu-item">\n\t<span><a class="nav-link nav-back-link" href="javascript:;">\n\t\t<span class="next"><</span>Zurück\n\t</a></span>\n</li>';
+
+navExpand.forEach(item => {
+	if (item.querySelector('.nav-expand-content') !== null) {
+		item.querySelector('.nav-expand-content').insertAdjacentHTML('afterbegin', backLink);
+	}
+
+	if (item.querySelector('.next') !== null) {
+		item.querySelector('.next').parentNode.addEventListener('click', () => item.classList.add('active'))
+	}
+
+	if (item.querySelector('.nav-back-link') !== null) {
+		item.querySelector('.nav-back-link').addEventListener('click', () => item.classList.remove('active'));
+	}
+});
+
+// remove active class from all except first
+jQuery('.menu-item-home.active:not(:first)').removeClass("active");
+jQuery('.menu-item-home.current_page_item:not(:first)').removeClass("active");
