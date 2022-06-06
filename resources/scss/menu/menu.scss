@@ -1,10 +1,10 @@
 #navigation-bar {
   height: 100vh;
-  z-index: 0;
   position: fixed;
   width: $left-menu-width;
   display: flex;
   flex-flow: column;
+  z-index: 1;
 
   @include breakpoint('lg') {
     width: 100%;
