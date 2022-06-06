@@ -24,27 +24,6 @@ jQuery(function () {
             jQuery(this).html('<i class="fas fa-search"></i>');
         }
     });
-
-    // left bar
-    jQuery('.hide-mobile .menu-item-has-children a').click(function (event) {
-        toggleMenu(jQuery(this));
-    });
-
-    jQuery('body:not(.nav-is-toggled) #navigation-bar').click(function (event) {
-        toggleMenu(jQuery(this), 'close');
-    });
-
-    jQuery('div#main').click(function (event) {
-        toggleMenu(jQuery(this), 'close');
-    });
-
-    jQuery('.menu-main-container').click(function () {
-        var elem = jQuery('.current_page_item').first();
-        //funktioniert
-        if (elem.parent().hasClass('nav-expand-content')) {
-            jQuery('.current-menu-parent').find('> span > .next').click();
-        }
-    });
 });
 
 /**
