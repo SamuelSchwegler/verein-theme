@@ -52,7 +52,7 @@ class CalendarEvents
                 'location' => $location,
                 'description' => $description,
                 'group' => $group,
-                'img_src' => get_template_directory_uri() . '/public/media/calendar/' . $group
+                'img_src' => get_stylesheet_directory_uri() . '/public/media/calendar/' . $group
             ];
         }
 
