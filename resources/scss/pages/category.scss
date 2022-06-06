@@ -15,13 +15,13 @@ $post-width: calc(50% - var(--horizontal-gap) / 4); // Grösse eines Post Kasten
     max-width: $post-width;
     background: var(--main-color);
     padding-top: $content-gap*1.5;
-    margin-bottom: math.div(var(--horizontal-gap),2);
+    margin-bottom: calc(var(--horizontal-gap) / 2);
     color: white;
     position: relative;
     padding-bottom: $content-gap*2;
 
     &:nth-child(2n + 1) {
-      margin-right: math.div(var(--horizontal-gap),2);
+      margin-right: calc(var(--horizontal-gap) / 2);
     }
 
     @include breakpoint('md') {

@@ -51,33 +51,3 @@ navExpand.forEach(item => {
 // remove active class from all except first
 jQuery('.menu-item-home.active:not(:first)').removeClass("active");
 jQuery('.menu-item-home.current_page_item:not(:first)').removeClass("active");
-
-function toggleMenu(element, action = 'open') {
-    if (action === 'open') {
-        let menu;
-
-        if (jQuery('.open').length !== 0) {
-            menu = jQuery('.open');
-            menu.animate({left: 0});
-            menu.removeClass('open');
-            jQuery('body').removeClass('sub-menu-open')
-            jQuery('.sub-menu-open').removeClass('sub-menu-open');
-        }
-
-        menu = element.parent().next('#menu-area ul:not(.open)');
-        menu.animate({left: '280px'});
-
-        setTimeout(function () {
-            element.closest('.menu-item-has-children').addClass('sub-menu-open');
-            menu.addClass('open');
-            jQuery('body').addClass('sub-menu-open')
-
-        }, 1);
-    } else if (action === 'close') {
-        let menu = jQuery('.open');
-        menu.animate({left: 0});
-        menu.removeClass('open');
-        jQuery('.sub-menu-open').removeClass('sub-menu-open');
-        jQuery('body').removeClass('sub-menu-open');
-    }
-}
