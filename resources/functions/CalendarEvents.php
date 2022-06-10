@@ -5,7 +5,7 @@ use Carbon\Carbon;
 
 class CalendarEvents
 {
-    public string $calendar_url = 'https://calendar.google.com/calendar/ical/livl4dcs89n80ibouh01kk68i0%40group.calendar.google.com/public/basic.ics';
+    public string $calendar_url = 'https://calendar.google.com/calendar/ical/l2l520ikti6f56tql9hfccthl0%40group.calendar.google.com/public/basic.ics';
     public $ical;
 
     /* How many ToDos are in this ical? */
@@ -19,14 +19,18 @@ class CalendarEvents
 
     public function __construct()
     {
-        $json = file_get_contents(get_stylesheet_directory() . '/config.json');
-        $config = json_decode($json, 0);
+        if (function_exists('get_stylesheet_directory')) {
+            $json = file_get_contents(get_stylesheet_directory() . '/config.json');
+            $config = json_decode($json, 0);
 
-        if (isset($config->calendar_url)) {
-            $this->calendar_url = $config->calendar_url;
+            if (isset($config->calendar_url)) {
+                $this->calendar_url = $config->calendar_url;
+            }
         }
+
         $this->ical = $this->setupICal($this->calendar_url);
         $this->ical = $this->eventsFromRange(time() - 24 * 3600, time() + 180 * 24 * 3600);
+
     }
 
     public function all_calendar_events(): array
@@ -81,15 +85,17 @@ class CalendarEvents
 
     public function group(string $summary, string $description): string
     {
-        $json = file_get_contents(get_stylesheet_directory() . '/resources/functions/calendar-config.json');
-        $config = json_decode($json, 0);
+        if (function_exists('get_stylesheet_directory')) {
+            $json = file_get_contents(get_stylesheet_directory() . '/resources/functions/calendar-config.json');
+            $config = json_decode($json, 0);
 
-        $haystack = $summary . $description;
+            $haystack = $summary . $description;
 
-        foreach ($config as $file => $terms) {
-            foreach($terms as $term) {
-                if (stristr($haystack, $term) !== false) {
-                    return $file;
+            foreach ($config as $file => $terms) {
+                foreach ($terms as $term) {
+                    if (stristr($haystack, $term) !== false) {
+                        return $file;
+                    }
                 }
             }
         }
@@ -261,14 +267,17 @@ class CalendarEvents
     public function events(): mixed
     {
         $events = [];
+        $removal_events = array_column($this->cal['VEVENT'], 'RECURRENCE-ID;TZID=Europe/Zurich');
 
         foreach ($this->cal['VEVENT'] as $vevent) {
             if (array_key_exists('RRULE', $vevent)) {
-                $this->generateRepeatingEvent($vevent, $events);
+                $new_events = $this->generateRepeatingEvent($vevent, $removal_events);
+                $events = array_merge($events, $new_events);
             } else {
                 $events[] = $vevent;
             }
         }
+
 
         return $events;
     }
@@ -276,10 +285,10 @@ class CalendarEvents
     /**
      * Erstellt aus einer Sequenz mehrere Einträge
      * @param array $event
-     * @param array $events
-     * @return void
+     * @param array $removal_events
+     * @return array $events
      */
-    public function generateRepeatingEvent(array $event, array &$events)
+    public function generateRepeatingEvent(array $event, array $removal_events)
     {
         $rules = [];
         $rules_expoded = explode(';', $event['RRULE']);
@@ -287,26 +296,39 @@ class CalendarEvents
             $r = explode('=', $rule);
             $rules[$r[0]] = $r[1];
         }
+
         $start = Carbon::parse($event['DTSTART']);
         $end = Carbon::parse($event['DTEND']);
         $duration = $start->diffInMinutes($end);
 
         $period = null;
 
+        $repeat_end = Carbon::now()->addYear();
+        if(array_key_exists('UNTIL', $rules)) {
+            $repeat_end = Carbon::parse($rules['UNTIL']);
+        }
         switch ($rules['FREQ']) {
             case "WEEKLY":
-                $period = $start->toPeriod(Carbon::now()->addYear(), 7, 'days');
+                $period = $start->toPeriod($repeat_end, 7, 'days');
                 break;
         }
 
         foreach ($period as $day) {
-            $add_event = $event;
-            $add_event['DTSTART'] = $day->format('Ymd') . 'T' . $day->format('His');
-            $day->addMinutes($duration);
-            $add_event['DTEND'] = $day->format('Ymd') . 'T' . $day->format('His');
-            unset($add_event['RRULE']);
-            $events[] = $add_event;
+            $start = $day->format('Ymd') . 'T' . $day->format('His');
+            if ((!array_key_exists('EXDATE;TZID=Europe/Zurich', $event)
+                || $start !== $event['EXDATE;TZID=Europe/Zurich'])
+                && !in_array($start, $removal_events)
+            ) {
+                $add_event = $event;
+                $add_event['DTSTART'] = $start;
+                $day->addMinutes($duration);
+                $add_event['DTEND'] = $day->format('Ymd') . 'T' . $day->format('His');
+                unset($add_event['RRULE']);
+                $events[] = $add_event;
+            }
         }
+
+        return $events;
     }
 
     /**
@@ -314,7 +336,8 @@ class CalendarEvents
      *
      * @return bool {boolean}
      */
-    public function hasEvents(): bool
+    public
+    function hasEvents(): bool
     {
         return count($this->events()) > 0;
     }
@@ -332,7 +355,8 @@ class CalendarEvents
      * @return bool|array {mixed}
      * @throws Exception
      */
-    public function eventsFromRange($rangeStart = false, $rangeEnd = false): bool|array
+    public
+    function eventsFromRange($rangeStart = false, $rangeEnd = false): bool|array
     {
         $events = $this->sortEventsWithOrder($this->events(), SORT_ASC);
         if (!$events) {
@@ -368,7 +392,8 @@ class CalendarEvents
      * @param int $sortOrder
      * @return array {boolean}
      */
-    public function sortEventsWithOrder($events, int $sortOrder = SORT_DESC): array
+    public
+    function sortEventsWithOrder($events, int $sortOrder = SORT_DESC): array
     {
         $extendedEvents = array();
 
@@ -393,7 +418,8 @@ class CalendarEvents
         return $extendedEvents;
     }
 
-    public function get_timezone_offset($remote_tz, $origin_tz = null): bool|int
+    public
+    function get_timezone_offset($remote_tz, $origin_tz = null): bool|int
     {
         if ($origin_tz === null) {
             if (!is_string($origin_tz = date_default_timezone_get())) {
