@@ -290,6 +290,7 @@ class CalendarEvents
      */
     public function generateRepeatingEvent(array $event, array $removal_events)
     {
+        $events = [];
         $rules = [];
         $rules_expoded = explode(';', $event['RRULE']);
         foreach ($rules_expoded as $rule) {
