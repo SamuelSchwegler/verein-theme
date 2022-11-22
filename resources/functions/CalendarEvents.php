@@ -39,9 +39,9 @@ class CalendarEvents
         $events = [];
 
         foreach ($events_ical as $event) {
-            $summary = $event['SUMMARY'];
-            $description = $event['DESCRIPTION'];
-            $location = stripslashes($event['LOCATION']);
+            $summary = $event['SUMMARY'] ?? '';
+            $description = $event['DESCRIPTION'] ?? '';
+            $location = stripslashes($event['LOCATION'] ?? '');
             $location = str_replace(", Schweiz", "", $location);
 
             $start = $this->iCalDateToUnixTimestamp($event['DTSTART']);
